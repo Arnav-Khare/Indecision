@@ -2,100 +2,86 @@
 
 console.log('App.js is running');
 
-//JSX - javaScript XML
+var appRoot = document.getElementById('app');
 //babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
 var app = {
     title: 'Indecision',
     subtitle: 'This Application let you decide your nex Task!!!',
-    options: ['One', 'Two']
+    options: []
 };
-
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
+var renderData = function renderData() {
+    var template = React.createElement(
+        'div',
         null,
         React.createElement(
+            'h1',
+            null,
+            React.createElement(
+                'center',
+                null,
+                app.title
+            )
+        ),
+        app.subtitle && React.createElement(
             'center',
             null,
-            app.title
-        )
-    ),
-    app.subtitle && React.createElement(
-        'center',
-        null,
+            React.createElement(
+                'p',
+                null,
+                app.subtitle
+            )
+        ),
         React.createElement(
             'p',
             null,
-            app.subtitle
-        )
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your Options' : 'No Options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item one'
+            app.options.length > 0 ? 'Here are your Options' : 'No Options'
         ),
         React.createElement(
-            'li',
+            'p',
             null,
-            'Item Two'
+            app.options.length
+        ),
+        React.createElement(
+            'ol',
+            null,
+            React.createElement(
+                'li',
+                null,
+                'Item one'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'Item Two'
+            )
+        ),
+        React.createElement(
+            'form',
+            { onSubmit: formSubmit },
+            React.createElement('input', { type: 'text', name: 'options' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Options'
+            )
         )
-    )
-);
-var user = {
-    name: 'Arnav Khare',
-    age: 19,
-    location: 'Gonda ,Uttar-Pradesh'
+    );
+    ReactDOM.render(template, appRoot);
 };
-
-function getLocation(location) {
-    if (location) {
-        return location;
-    } else {
-        return 'UnKnown';
-    }
+var formSubmit = function formSubmit(e) {
+    e.preventDefault();
+    var value = e.target.options.value;
+    app.options.push(value);
+    e.target.options.value = '';
+    renderData();
 };
-var template2 = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        'Arnav Khare'
-    ),
-    React.createElement(
-        'p',
-        null,
-        'Age:19'
-    ),
-    React.createElement(
-        'p',
-        null,
-        'Location: ',
-        getLocation(user.location)
-    )
-);
-var appRoot = document.getElementById('app');
-var appRoot2 = document.getElementById('challenge');
-
-//ReactDOM.render(template,appRoot);
-//  ReactDOM.render(template2,appRoot2);
-
+renderData();
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-var square1 = function square1(fullname) {
-    return fullname.split(' ')[0];
-};
-
-var fullname = 'Arnav Khare';
-console.log(square1(fullname));
+// const multiplier={
+//     numbers:[1,2,3,4,5,6,7,8,9],
+//     multiply:7,
+//     getMultiply(){
+//         return this.numbers.map((num)=> (this.multiply*num))
+//     }
+// }
+// console.log(multiplier.getMultiply());

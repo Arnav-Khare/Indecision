@@ -1,58 +1,45 @@
 console.log('App.js is running')
 
-//JSX - javaScript XML
+const appRoot=document.getElementById('app')
 //babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
 const app = {
     title : 'Indecision',
     subtitle : 'This Application let you decide your nex Task!!!',
-    options:['One','Two']
+    options:[]
 };
-
-const template = (
-    <div>
-    <h1><center>{app.title}</center></h1>
-    {(app.subtitle)&&<center><p>{app.subtitle}</p></center>}
-    <p>{app.options.length>0?'Here are your Options':'No Options'}</p>
-    <ol>
-        <li>Item one</li>
-        <li>Item Two</li>
-    </ol>
-    </div>
-)
-const user ={
-    name:'Arnav Khare',
-    age:19,
-    location:'Gonda ,Uttar-Pradesh'
-};
-
-function getLocation(location)
-{
-    if(location)
-    {
-        return location;
-    }
-    else{
-        return 'UnKnown';
-    }
-};
-const template2=(
-    <div>
-        <h1>Arnav Khare</h1>
-        <p>Age:19</p>
-        
-        <p>Location: {getLocation(user.location)}</p>
-    </div>
-) 
-const appRoot=document.getElementById('app')
-const appRoot2=document.getElementById('challenge')
-
-//ReactDOM.render(template,appRoot);
-//  ReactDOM.render(template2,appRoot2);
-
+const renderData=()=>{
+    const template = (
+        <div>
+        <h1><center>{app.title}</center></h1>
+        {(app.subtitle)&&<center><p>{app.subtitle}</p></center>}
+        <p>{app.options.length>0?'Here are your Options':'No Options'}</p>
+        <p>{app.options.length}</p>
+        <ol>
+            <li>Item one</li>
+            <li>Item Two</li>
+        </ol>
+        <form onSubmit={formSubmit}>
+            <input type="text" name="options"></input>
+            <button>Add Options</button>
+        </form>
+        </div>
+    )
+    ReactDOM.render(template,appRoot);
+}
+const formSubmit=(e)=>{
+    e.preventDefault();
+   const value=e.target.options.value
+   app.options.push(value);
+   e.target.options.value='';
+   renderData();
+}
+renderData();
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
- 
-
-const square1=(fullname) => (fullname.split(' ')[0]);
-
-const fullname='Arnav Khare'
-console.log(square1(fullname));
+// const multiplier={
+//     numbers:[1,2,3,4,5,6,7,8,9],
+//     multiply:7,
+//     getMultiply(){
+//         return this.numbers.map((num)=> (this.multiply*num))
+//     }
+// }
+// console.log(multiplier.getMultiply()); 
